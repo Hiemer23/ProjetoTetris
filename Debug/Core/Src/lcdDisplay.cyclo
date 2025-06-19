@@ -1,0 +1,10 @@
+../Core/Src/lcdDisplay.c:24:6:register_EN	1
+../Core/Src/lcdDisplay.c:111:6:Write_Display	3
+../Core/Src/lcdDisplay.c:124:6:Write_caracter	1
+../Core/Src/lcdDisplay.c:128:6:registra_RS	1
+../Core/Src/lcdDisplay.c:138:6:Set_Line	2
+../Core/Src/lcdDisplay.c:145:6:change_Message	5
+../Core/Src/lcdDisplay.c:160:6:send_nibble	5
+../Core/Src/lcdDisplay.c:169:6:lcd_send_command	1
+../Core/Src/lcdDisplay.c:176:6:lcd_send_data	1
+../Core/Src/lcdDisplay.c:183:6:initialize_LCD	1
