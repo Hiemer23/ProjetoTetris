@@ -25,6 +25,7 @@
 #include "lcdDisplay.h"
 #include "LCD_Manager.h"
 #include "MatrizLed.h"
+#include "ManagerTetris.h"
 /* USER CODE END Includes */
 
 /* Private typedef -----------------------------------------------------------*/
@@ -161,8 +162,12 @@ int main(void)
     DWT_Delay_Init();
     initialize_LCD();
 
+    srand(HAL_GetTick());
+
     estados_LCD estadoTeste = 0;
-    uint8_t flagTest = FALSE;
+    //uint8_t flagTest = FALSE;
+
+    initGame();
     /* USER CODE END 2 */
 
     /* Infinite loop */
@@ -174,14 +179,16 @@ int main(void)
             flag1ms = FALSE;
             Write_Display();
             taskMatrizLed();
+            taskTetris();
+            changeMatriz(board);
         }
 
         if (count100ms >= 100)
         {
 
             count100ms = 0;
-            flagTest == TRUE ? changeMatriz(MatrizLedB) : changeMatriz(MatrizLedA);
-            flagTest = flagTest == TRUE ? 0:1;
+            // flagTest == TRUE ? changeMatriz(MatrizLedB) : changeMatriz(MatrizLedA);
+            // flagTest = flagTest == TRUE ? 0 : 1;
             lcd_Task();
         }
 
