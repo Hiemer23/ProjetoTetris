@@ -10,16 +10,19 @@ void clear_Display(void);
 void entry_mode_Set(void);
 void display_On(void);
 void Write_Display(void);
-void Write_caracter(char c);
+void Write_caracter(uint8_t c);
 void Set_Line(char line);
 void registra_RS(void);
-void change_Message(char line, char *new_Text);
+void change_Message(uint8_t line, char *new_Text);
+void lcd_send_command(uint8_t cmd);
 
 //Variaveis Locais
 int8_t status_LCD_startup = 1;
 char message[2][17] = {"                ", "                "};
-int8_t position_String = 0;
-char linha_LCD = 0;
+uint8_t position_String = 0;
+uint8_t linha_LCD = 0;
+
+void lcd_send_data(uint8_t data);
 
 void register_EN(void) {
     EN_HIGH;
@@ -121,7 +124,7 @@ void Write_Display() {
 
 }
 
-void Write_caracter(char c) {
+void Write_caracter(uint8_t c) {
 	lcd_send_data(c);
 }
 
@@ -142,8 +145,8 @@ void Set_Line(char line) {
 	        lcd_send_command(0xC0);  // linha 2
 }
 
-void change_Message(char line, char *new_Text) {
-    int i = 0;
+void change_Message(uint8_t line, char *new_Text) {
+    uint8_t i = 0;
     //Verifica onde acaba a string enviada
     while (new_Text[i] != '\0' && i < 16) {
 

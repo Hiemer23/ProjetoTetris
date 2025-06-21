@@ -195,10 +195,10 @@ int main(void)
         if (count1000ms >= 1000)
         {
             count1000ms = 0;
-            estadoTeste++;
-            if (estadoTeste > TELA4)
-                estadoTeste = TELA1;
-            changeLCDScreen(estadoTeste);
+//            estadoTeste++;
+//            if (estadoTeste > TELA4)
+//                estadoTeste = TELA1;
+//            changeLCDScreen(estadoTeste);
         }
 
         /* USER CODE END WHILE */
