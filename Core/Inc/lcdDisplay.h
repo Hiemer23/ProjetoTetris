@@ -33,6 +33,7 @@
 void Write_Display(void);
 void initialize_LCD(void);
 void change_Message(uint8_t line, char *new_Text);
+void lcd_create_char(uint8_t pos, uint8_t *pattern);
 
 #endif	/* LCD_16X2_H */
 

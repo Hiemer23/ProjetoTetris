@@ -9,6 +9,16 @@
 #define INC_MANAGERTETRIS_H_
 
 #include "tetris.h"
+#include "lcdDisplay.h"
+
+#define CUSTOMI 0x7C
+#define CUSTOMO 1
+#define CUSTOML 2
+#define CUSTOMS 3
+#define CUSTOMZ 4
+#define CUSTOMT 5
+#define CUSTOMJ 6
+
 
 void initGame(void);
 void taskTetris(void);

@@ -1,2 +1,2 @@
-../Core/Src/LCD_Manager.c:12:6:lcd_Task	8	static
-../Core/Src/LCD_Manager.c:37:6:changeLCDScreen	16	static
+../Core/Src/LCD_Manager.c:13:6:lcd_Task	48	static
+../Core/Src/LCD_Manager.c:55:6:changeLCDScreen	16	static

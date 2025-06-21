@@ -7,4 +7,5 @@
 ../Core/Src/lcdDisplay.c:163:6:send_nibble	16	static
 ../Core/Src/lcdDisplay.c:172:6:lcd_send_command	16	static
 ../Core/Src/lcdDisplay.c:179:6:lcd_send_data	16	static
-../Core/Src/lcdDisplay.c:186:6:initialize_LCD	8	static
+../Core/Src/lcdDisplay.c:188:6:initialize_LCD	8	static
+../Core/Src/lcdDisplay.c:209:6:lcd_create_char	24	static

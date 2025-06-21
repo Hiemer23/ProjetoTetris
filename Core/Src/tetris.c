@@ -558,6 +558,18 @@ void generate_next_piece(int *linha, int *coluna, PecaTetris *peca, int *peca_at
 }
 
 /**
+ * @date        2025-03-09
+ * @author      Andrey Hiemer
+ * @brief       Get a Proxima Peca a ser gerada.
+ * 
+ * Esta função exibe a próxima peça que será gerada no jogo Tetris.
+ */
+
+ int get_next_piece(){
+    return next_number; // Retorna a próxima peça a ser gerada
+ }
+
+/**
  * @date        2025-03-08
  * @author      Andrey Hiemer
  * @brief       Fixa a peça no tabuleiro, tornando suas posições imutáveis.

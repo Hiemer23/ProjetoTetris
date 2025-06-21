@@ -215,6 +215,12 @@ int move_piece_down(int *linha, int *coluna, PecaTetris *peca, int *peca_atual);
  */
 void update_game(int *linha, int *coluna, PecaTetris *peca, int *peca_atual);
 
+/**
+ * @brief Get the next piece object
+ * 
+ * @return int 
+ */
+int get_next_piece();
 
 extern uint8_t board[ROWS][COLS];
 

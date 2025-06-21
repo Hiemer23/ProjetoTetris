@@ -148,7 +148,7 @@ void Set_Line(char line) {
 void change_Message(uint8_t line, char *new_Text) {
     uint8_t i = 0;
     //Verifica onde acaba a string enviada
-    while (new_Text[i] != '\0' && i < 16) {
+    while (i < 16) {
 
         if (message[line][i] != new_Text[i]) {
                 message[line][i] = new_Text[i];
@@ -173,14 +173,16 @@ void lcd_send_command(uint8_t cmd) {
     RS_LOW;
     send_nibble(cmd >> 4);  // parte alta
     send_nibble(cmd & 0x0F); // parte baixa
-    LCD_delay_us(40);
+    //LCD_delay_us(40);
 }
 
 void lcd_send_data(uint8_t data) {
     RS_HIGH;
+    //LCD_delay_us(1);
     send_nibble(data >> 4);
     send_nibble(data & 0x0F);
-    LCD_delay_us(40);
+    //LCD_delay_us(40);
+    RS_LOW;
 }
 
 void initialize_LCD(void) {
@@ -202,4 +204,12 @@ void initialize_LCD(void) {
     LCD_delay_ms(2);
     lcd_send_command(0x06); // entry mode set
     lcd_send_command(0x0C); // display ON, cursor OFF
+}
+
+void lcd_create_char(uint8_t pos, uint8_t *pattern) {
+    // CGRAM começa em 0x40, cada caractere ocupa 8 bytes
+    lcd_send_command(0x40 | (pos << 3));  // endereço CGRAM para caractere N
+    for (int i = 0; i < 8; i++) {
+        lcd_send_data(pattern[i]);   // envia cada linha do caractere
+    }
 }

@@ -23,9 +23,9 @@
 /* USER CODE BEGIN Includes */
 #include <stdint.h>
 #include "lcdDisplay.h"
+#include "ManagerTetris.h"
 #include "LCD_Manager.h"
 #include "MatrizLed.h"
-#include "ManagerTetris.h"
 /* USER CODE END Includes */
 
 /* Private typedef -----------------------------------------------------------*/
@@ -168,6 +168,7 @@ int main(void)
     //uint8_t flagTest = FALSE;
 
     initGame();
+    changeLCDScreen(TELANEXTPIECE);
     /* USER CODE END 2 */
 
     /* Infinite loop */

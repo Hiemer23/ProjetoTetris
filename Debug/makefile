@@ -60,8 +60,8 @@ all: main-build
 main-build: ProjetoTetris.elf secondary-outputs
 
 # Tool invocations
-ProjetoTetris.elf ProjetoTetris.map: $(OBJS) $(USER_OBJS) /home/andrey/Documents/ifrs/9Sem/MicroProc2/ProjetoTetris/ProjetoTetris/STM32F103C8TX_FLASH.ld makefile objects.list $(OPTIONAL_TOOL_DEPS)
-	arm-none-eabi-gcc -o "ProjetoTetris.elf" @"objects.list" $(USER_OBJS) $(LIBS) -mcpu=cortex-m3 -T"/home/andrey/Documents/ifrs/9Sem/MicroProc2/ProjetoTetris/ProjetoTetris/STM32F103C8TX_FLASH.ld" --specs=nosys.specs -Wl,-Map="ProjetoTetris.map" -Wl,--gc-sections -static --specs=nano.specs -mfloat-abi=soft -mthumb -Wl,--start-group -lc -lm -Wl,--end-group
+ProjetoTetris.elf ProjetoTetris.map: $(OBJS) $(USER_OBJS) /home/andrey/Documentos/ifrs/9Sem/SistemasMicro2/Proj/ProjetoTetris/STM32F103C8TX_FLASH.ld makefile objects.list $(OPTIONAL_TOOL_DEPS)
+	arm-none-eabi-gcc -o "ProjetoTetris.elf" @"objects.list" $(USER_OBJS) $(LIBS) -mcpu=cortex-m3 -T"/home/andrey/Documentos/ifrs/9Sem/SistemasMicro2/Proj/ProjetoTetris/STM32F103C8TX_FLASH.ld" --specs=nosys.specs -Wl,-Map="ProjetoTetris.map" -Wl,--gc-sections -static --specs=nano.specs -mfloat-abi=soft -mthumb -Wl,--start-group -lc -lm -Wl,--end-group
 	@echo 'Finished building target: $@'
 	@echo ' '
 

@@ -1,0 +1,6 @@
+{
+    "files.associations": {
+        "lcd_manager.h": "c",
+        "managertetris.h": "c"
+    }
+}

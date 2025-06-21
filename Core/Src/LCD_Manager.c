@@ -8,6 +8,7 @@
 #include "LCD_Manager.h"
 
 estados_LCD estadoLCD = TELA1;
+uint8_t PecasLCD[7] = {CUSTOMT,CUSTOMZ,CUSTOMI,CUSTOML,CUSTOMJ,CUSTOMS,CUSTOMO};
 
 void lcd_Task(void) {
 	//4 estados na máquina de estados
@@ -31,12 +32,29 @@ void lcd_Task(void) {
 		change_Message(0, ">>Limpar Recorde");
 		change_Message(1, "Start Game");
 		break;
+    case TELATESTE:
+        char linhaTeste[16] = "Peca:";
+        linhaTeste[7]  = (char)CUSTOMI;
+        linhaTeste[8]  = (char)CUSTOMO;
+        linhaTeste[9]  = (char)CUSTOML;
+        linhaTeste[10] = (char)CUSTOMS;
+        linhaTeste[11] = (char)CUSTOMI;
+        linhaTeste[12] = (char)CUSTOMZ;
+        linhaTeste[13] = (char)CUSTOMT;
+        linhaTeste[14] = (char)CUSTOMJ;
+        change_Message(0, linhaTeste);
+        break;
+    case TELANEXTPIECE:
+    	char linha[16] = "Proxima Peca:";
+    	linha[15] = PecasLCD[get_next_piece()];
+    	change_Message(0, linha);
+    	break;
 	}
 }
 
 void changeLCDScreen(estados_LCD novaTela) {
 	//valide que novaTela é um estado valido antes de mudar
-	if (novaTela >= TELA1 && novaTela <= TELA4) {
+	if (novaTela >= TELA1 && novaTela < FIM) {
 		estadoLCD = novaTela;
 	} else {
 		estadoLCD = TELA1; // Reset to default state if invalid

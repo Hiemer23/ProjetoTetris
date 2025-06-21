@@ -1,2 +1,2 @@
-../Core/Src/LCD_Manager.c:12:6:lcd_Task	5
-../Core/Src/LCD_Manager.c:37:6:changeLCDScreen	2
+../Core/Src/LCD_Manager.c:13:6:lcd_Task	7
+../Core/Src/LCD_Manager.c:55:6:changeLCDScreen	2

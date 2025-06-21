@@ -8,11 +8,12 @@
 #ifndef INC_LCD_MANAGER_H_
 #define INC_LCD_MANAGER_H_
 
+#include "ManagerTetris.h"
 #include "lcdDisplay.h"
 
 //Enum
 typedef enum {
-	TELA1, TELA2, TELA3, TELA4
+	TELA1, TELA2, TELA3, TELA4, TELATESTE, TELANEXTPIECE, FIM
 }estados_LCD;
 
 //Prototipos
