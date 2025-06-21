@@ -148,7 +148,7 @@ void Set_Line(char line) {
 void change_Message(uint8_t line, char *new_Text) {
     uint8_t i = 0;
     //Verifica onde acaba a string enviada
-    while (i < 16) {
+    while (new_Text[i] != '\0' && i < 16) {
 
         if (message[line][i] != new_Text[i]) {
                 message[line][i] = new_Text[i];

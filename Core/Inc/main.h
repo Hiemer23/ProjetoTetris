@@ -77,9 +77,12 @@ void Error_Handler(void);
 #define CLK1_GPIO_Port GPIOB
 #define CLK2_Pin GPIO_PIN_14
 #define CLK2_GPIO_Port GPIOB
+#define TestePin_Pin GPIO_PIN_4
+#define TestePin_GPIO_Port GPIOB
 
 /* USER CODE BEGIN Private defines */
-
+#define TRUE 1
+#define FALSE 0
 /* USER CODE END Private defines */
 
 #ifdef __cplusplus

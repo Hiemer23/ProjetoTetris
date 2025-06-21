@@ -1,6 +1,9 @@
 {
     "files.associations": {
         "lcd_manager.h": "c",
-        "managertetris.h": "c"
+        "managertetris.h": "c",
+        "input.h": "c",
+        "matrizled.h": "c",
+        "main.h": "c"
     }
 }

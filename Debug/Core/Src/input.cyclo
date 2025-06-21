@@ -1,0 +1,14 @@
+../Core/Src/input.c:24:6:initInput	1
+../Core/Src/input.c:29:10:ler_ADC_canal	1
+../Core/Src/input.c:46:6:taskLeituraAD	1
+../Core/Src/input.c:58:6:atualizaNavegacaoUpandDown	6
+../Core/Src/input.c:85:6:atualizaNavegacaoEsquerdaDireita	6
+../Core/Src/input.c:111:6:atualizaBotao	5
+../Core/Src/input.c:125:9:getCima	1
+../Core/Src/input.c:129:9:getBaixo	1
+../Core/Src/input.c:133:6:resetCimaBaixo	1
+../Core/Src/input.c:138:9:getDireita	1
+../Core/Src/input.c:142:9:getEsquerda	1
+../Core/Src/input.c:146:9:getBotaoEvento	1
+../Core/Src/input.c:151:6:resetDireitaEsquerda	1
+../Core/Src/input.c:157:6:resetBotaoEvento	1

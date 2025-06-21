@@ -26,6 +26,7 @@
 #include "ManagerTetris.h"
 #include "LCD_Manager.h"
 #include "MatrizLed.h"
+#include "input.h"
 /* USER CODE END Includes */
 
 /* Private typedef -----------------------------------------------------------*/
@@ -35,8 +36,7 @@
 
 /* Private define ------------------------------------------------------------*/
 /* USER CODE BEGIN PD */
-#define TRUE 1
-#define FALSE 0
+
 /* USER CODE END PD */
 
 /* Private macro -------------------------------------------------------------*/
@@ -45,10 +45,12 @@
 /* USER CODE END PM */
 
 /* Private variables ---------------------------------------------------------*/
+ADC_HandleTypeDef hadc1;
+
 TIM_HandleTypeDef htim2;
 
 /* USER CODE BEGIN PV */
-uint8_t flag1ms, count100ms;
+uint8_t flag1ms, count100ms, editPosition;
 uint16_t count1000ms;
 
 MatrizLED_t MatrizLedA = {
@@ -93,6 +95,7 @@ MatrizLED_t MatrizLedB = {
 void SystemClock_Config(void);
 static void MX_GPIO_Init(void);
 static void MX_TIM2_Init(void);
+static void MX_ADC1_Init(void);
 /* USER CODE BEGIN PFP */
 
 /* USER CODE END PFP */
@@ -157,18 +160,20 @@ int main(void)
     /* Initialize all configured peripherals */
     MX_GPIO_Init();
     MX_TIM2_Init();
+    MX_ADC1_Init();
     /* USER CODE BEGIN 2 */
     HAL_TIM_Base_Start_IT(&htim2);
-    DWT_Delay_Init();
-    initialize_LCD();
+    HAL_ADC_Start(&hadc1);
 
-    srand(HAL_GetTick());
+    initInput(&hadc1);
+    DWT_Delay_Init();
+    initLCD();
 
     estados_LCD estadoTeste = 0;
-    //uint8_t flagTest = FALSE;
+    editPosition = 1;
 
-    initGame();
-    changeLCDScreen(TELANEXTPIECE);
+    
+    changeLCDScreen(TELA1);
     /* USER CODE END 2 */
 
     /* Infinite loop */
@@ -177,29 +182,59 @@ int main(void)
     {
         if (flag1ms)
         {
+            HAL_GPIO_TogglePin(TestePin_GPIO_Port, TestePin_Pin);
             flag1ms = FALSE;
+            taskLeituraAD();
+
             Write_Display();
             taskMatrizLed();
-            taskTetris();
+            if(gameRunning())
+            {
+                taskTetris();
+            }
+            else{
+                editPosition = TRUE;
+            }
+            
             changeMatriz(board);
+            HAL_GPIO_TogglePin(TestePin_GPIO_Port, TestePin_Pin);
         }
 
         if (count100ms >= 100)
         {
+            if (editPosition)
+            {
+                count100ms = 0;
+                if (getCima())
+                {
+                    estadoTeste = estadoTeste == TELA1 ? TELA4 : estadoTeste - 1;
+                    changeLCDScreen(estadoTeste);
+                    resetCimaBaixo();
+                }
+                if (getBaixo())
+                {
+                    estadoTeste = estadoTeste == TELA4 ? TELA1 : estadoTeste + 1;
+                    changeLCDScreen(estadoTeste);
+                    resetCimaBaixo();
+                }
+            }
 
-            count100ms = 0;
-            // flagTest == TRUE ? changeMatriz(MatrizLedB) : changeMatriz(MatrizLedA);
-            // flagTest = flagTest == TRUE ? 0 : 1;
+            if(getBotaoEvento() && !gameRunning()){
+                editPosition = FALSE;
+                changeLCDScreen(TELANEXTPIECE);
+                initGame();
+                resetBotaoEvento();
+            }
             lcd_Task();
         }
 
         if (count1000ms >= 1000)
         {
             count1000ms = 0;
-//            estadoTeste++;
-//            if (estadoTeste > TELA4)
-//                estadoTeste = TELA1;
-//            changeLCDScreen(estadoTeste);
+            //            estadoTeste++;
+            //            if (estadoTeste > TELA4)
+            //                estadoTeste = TELA1;
+            //            changeLCDScreen(estadoTeste);
         }
 
         /* USER CODE END WHILE */
@@ -217,6 +252,7 @@ void SystemClock_Config(void)
 {
     RCC_OscInitTypeDef RCC_OscInitStruct = {0};
     RCC_ClkInitTypeDef RCC_ClkInitStruct = {0};
+    RCC_PeriphCLKInitTypeDef PeriphClkInit = {0};
 
     /** Initializes the RCC Oscillators according to the specified parameters
      * in the RCC_OscInitTypeDef structure.
@@ -239,12 +275,64 @@ void SystemClock_Config(void)
     RCC_ClkInitStruct.SYSCLKSource = RCC_SYSCLKSOURCE_PLLCLK;
     RCC_ClkInitStruct.AHBCLKDivider = RCC_SYSCLK_DIV1;
     RCC_ClkInitStruct.APB1CLKDivider = RCC_HCLK_DIV2;
-    RCC_ClkInitStruct.APB2CLKDivider = RCC_HCLK_DIV2;
+    RCC_ClkInitStruct.APB2CLKDivider = RCC_HCLK_DIV1;
 
     if (HAL_RCC_ClockConfig(&RCC_ClkInitStruct, FLASH_LATENCY_2) != HAL_OK)
     {
         Error_Handler();
     }
+    PeriphClkInit.PeriphClockSelection = RCC_PERIPHCLK_ADC;
+    PeriphClkInit.AdcClockSelection = RCC_ADCPCLK2_DIV6;
+    if (HAL_RCCEx_PeriphCLKConfig(&PeriphClkInit) != HAL_OK)
+    {
+        Error_Handler();
+    }
+}
+
+/**
+ * @brief ADC1 Initialization Function
+ * @param None
+ * @retval None
+ */
+static void MX_ADC1_Init(void)
+{
+
+    /* USER CODE BEGIN ADC1_Init 0 */
+
+    /* USER CODE END ADC1_Init 0 */
+
+    ADC_ChannelConfTypeDef sConfig = {0};
+
+    /* USER CODE BEGIN ADC1_Init 1 */
+
+    /* USER CODE END ADC1_Init 1 */
+
+    /** Common config
+     */
+    hadc1.Instance = ADC1;
+    hadc1.Init.ScanConvMode = ADC_SCAN_DISABLE;
+    hadc1.Init.ContinuousConvMode = DISABLE;
+    hadc1.Init.DiscontinuousConvMode = DISABLE;
+    hadc1.Init.ExternalTrigConv = ADC_SOFTWARE_START;
+    hadc1.Init.DataAlign = ADC_DATAALIGN_RIGHT;
+    hadc1.Init.NbrOfConversion = 1;
+    if (HAL_ADC_Init(&hadc1) != HAL_OK)
+    {
+        Error_Handler();
+    }
+
+    /** Configure Regular Channel
+     */
+    sConfig.Channel = ADC_CHANNEL_0;
+    sConfig.Rank = ADC_REGULAR_RANK_1;
+    sConfig.SamplingTime = ADC_SAMPLETIME_13CYCLES_5;
+    if (HAL_ADC_ConfigChannel(&hadc1, &sConfig) != HAL_OK)
+    {
+        Error_Handler();
+    }
+    /* USER CODE BEGIN ADC1_Init 2 */
+
+    /* USER CODE END ADC1_Init 2 */
 }
 
 /**
@@ -315,7 +403,7 @@ static void MX_GPIO_Init(void)
     HAL_GPIO_WritePin(GPIOA, LCD_D4_Pin | LCD_D5_Pin | LCD_D6_Pin | LCD_D7_Pin, GPIO_PIN_RESET);
 
     /*Configure GPIO pin Output Level */
-    HAL_GPIO_WritePin(GPIOB, D_Pin | CLK1_Pin | CLK2_Pin, GPIO_PIN_RESET);
+    HAL_GPIO_WritePin(GPIOB, D_Pin | CLK1_Pin | CLK2_Pin | TestePin_Pin, GPIO_PIN_RESET);
 
     /*Configure GPIO pins : LCD_RS_Pin LCD_E_Pin */
     GPIO_InitStruct.Pin = LCD_RS_Pin | LCD_E_Pin;
@@ -343,6 +431,13 @@ static void MX_GPIO_Init(void)
     GPIO_InitStruct.Pull = GPIO_NOPULL;
     GPIO_InitStruct.Speed = GPIO_SPEED_FREQ_LOW;
     HAL_GPIO_Init(GPIOB, &GPIO_InitStruct);
+
+    /*Configure GPIO pin : TestePin_Pin */
+    GPIO_InitStruct.Pin = TestePin_Pin;
+    GPIO_InitStruct.Mode = GPIO_MODE_OUTPUT_PP;
+    GPIO_InitStruct.Pull = GPIO_NOPULL;
+    GPIO_InitStruct.Speed = GPIO_SPEED_FREQ_HIGH;
+    HAL_GPIO_Init(TestePin_GPIO_Port, &GPIO_InitStruct);
 
     /* USER CODE BEGIN MX_GPIO_Init_2 */
     /* USER CODE END MX_GPIO_Init_2 */

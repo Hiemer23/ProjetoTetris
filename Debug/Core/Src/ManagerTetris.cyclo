@@ -1,2 +1,3 @@
-../Core/Src/ManagerTetris.c:88:6:initGame	1
-../Core/Src/ManagerTetris.c:108:6:taskTetris	2
+../Core/Src/ManagerTetris.c:15:6:initGame	1
+../Core/Src/ManagerTetris.c:29:6:taskTetris	6
+../Core/Src/ManagerTetris.c:72:5:gameRunning	1

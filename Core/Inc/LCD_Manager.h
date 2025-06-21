@@ -10,14 +10,23 @@
 
 #include "ManagerTetris.h"
 #include "lcdDisplay.h"
+#include "input.h"
 
-//Enum
-typedef enum {
-	TELA1, TELA2, TELA3, TELA4, TELATESTE, TELANEXTPIECE, FIM
-}estados_LCD;
+// Enum
+typedef enum
+{
+    TELA1,
+    TELA2,
+    TELA3,
+    TELA4,
+    TELANEXTPIECE,
+    FIM,
+    TELATESTE
+} estados_LCD;
 
-//Prototipos
+// Prototipos
 void lcd_Task(void);
 void changeLCDScreen(estados_LCD novaTela);
+void initLCD(void);
 
 #endif /* INC_LCD_MANAGER_H_ */

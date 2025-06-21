@@ -22,5 +22,6 @@
 
 void initGame(void);
 void taskTetris(void);
+int gameRunning(void);
 
 #endif /* INC_MANAGERTETRIS_H_ */

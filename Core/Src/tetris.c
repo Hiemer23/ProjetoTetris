@@ -58,7 +58,7 @@ PecaTetris pecas[7] = {
          {0, 0, 0, 0},
          {0, 0, 0, 0}}}};
 
-#define TEMPO_BASE 500 // Tempo base em ms para o movimento para baixo
+//#define TEMPO_BASE 750 // Tempo base em ms para o movimento para baixo
 
 static int multiplicador_tempo = 1;     // Multiplicador para acelerar o jogo
 static unsigned long timer_counter = 0; // Contador de milissegundos
@@ -808,4 +808,25 @@ void show_next_peace()
         }
         printf("\n");
     }
+}
+
+
+/**
+ * @brief Retorna a pontuação atual do jogo.
+ *
+ * Esta função retorna a pontuação acumulada pelo jogador durante o jogo.
+ *
+ * @return A pontuação atual como um valor de 16 bits sem sinal.
+ */
+uint16_t get_pontuacao(void)
+{
+    return (uint16_t)pontuacao;
+}
+
+void clear_pontuacao(void){
+    pontuacao = 0;
+    nivel = 0;
+    linhas_totais = 0;
+    multiplicador_tempo = 1; // Reseta o multiplicador de tempo
+    timer_counter = 0; // Reseta o contador de tempo
 }

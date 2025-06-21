@@ -6,6 +6,78 @@
  */
 
 #include "LCD_Manager.h"
+// Novos cararcteres para o jogo
+
+// L
+uint8_t pieceL[8] = {
+    0B11000,
+    0B11000,
+    0B11000,
+    0B11000,
+    0B11000,
+    0B11000,
+    0B11111,
+    0B11111};
+// J
+uint8_t pieceJ[8] = {
+    0B00011,
+    0B00011,
+    0B00011,
+    0B00011,
+    0B00011,
+    0B00011,
+    0B11111,
+    0B11111};
+// Z
+uint8_t pieceZ[8] = {
+    0B00000,
+    0B00000,
+    0B11100,
+    0B00100,
+    0B00100,
+    0B00111,
+    0B00000,
+    0B00000};
+// S
+uint8_t pieceS[8] = {
+    0B00000,
+    0B00000,
+    0B00111,
+    0B00100,
+    0B00100,
+    0B11100,
+    0B00000,
+    0B00000};
+// T
+uint8_t pieceT[8] = {
+    0B00000,
+    0B00000,
+    0B11111,
+    0B11111,
+    0B00100,
+    0B00100,
+    0B00000,
+    0B00000};
+// O
+uint8_t pieceO[8] = {
+    0B00000,
+    0B00000,
+    0B01110,
+    0B01110,
+    0B01110,
+    0B01110,
+    0B00000,
+    0B00000};
+// I
+uint8_t pieceI[8] = {
+    0B01110,
+    0B01110,
+    0B01110,
+    0B01110,
+    0B01110,
+    0B01110,
+    0B01110,
+    0B00000};
 
 estados_LCD estadoLCD = TELA1;
 uint8_t PecasLCD[7] = {CUSTOMT,CUSTOMZ,CUSTOMI,CUSTOML,CUSTOMJ,CUSTOMS,CUSTOMO};
@@ -33,21 +105,24 @@ void lcd_Task(void) {
 		change_Message(1, "Start Game");
 		break;
     case TELATESTE:
-        char linhaTeste[16] = "Peca:";
-        linhaTeste[7]  = (char)CUSTOMI;
-        linhaTeste[8]  = (char)CUSTOMO;
-        linhaTeste[9]  = (char)CUSTOML;
-        linhaTeste[10] = (char)CUSTOMS;
-        linhaTeste[11] = (char)CUSTOMI;
-        linhaTeste[12] = (char)CUSTOMZ;
-        linhaTeste[13] = (char)CUSTOMT;
-        linhaTeste[14] = (char)CUSTOMJ;
+        char linhaTeste[16], linhaTestes2[16];                    // 16 caracteres + terminador '\0'
+        // sprintf(linhaTeste, "AD1: %4u", AD1);   // %4u → valor sem sinal com 4 dígitos (ajustável)
+        // change_Message(0, linhaTeste);
+        
+        // sprintf(linhaTestes2, "AD2:%4u Bot:%1u", AD2, BotaoStatus);   // %4u → valor sem sinal com 4 dígitos (ajustável)
+        // change_Message(1, linhaTestes2);
+        sprintf(linhaTeste, "Y:%4u         ", AD2);   // %4u → valor sem sinal com 4 dígitos (ajustável)
         change_Message(0, linhaTeste);
+        sprintf(linhaTestes2, "Cima:%u Baixo:%u ", getCima(), getBaixo());   // %4u → valor sem sinal com 4 dígitos (ajustável)
+        change_Message(1, linhaTestes2);
         break;
     case TELANEXTPIECE:
-    	char linha[16] = "Proxima Peca:";
+    	char linha[16] = "Proxima Peca:   ";
+        char linha2[16];
     	linha[15] = PecasLCD[get_next_piece()];
     	change_Message(0, linha);
+        sprintf(linha2, "Pont:%5u ", get_pontuacao());   // %4u → valor sem sinal com 4 dígitos (ajustável)
+        change_Message(1, linha2);
     	break;
 	}
 }
@@ -59,4 +134,14 @@ void changeLCDScreen(estados_LCD novaTela) {
 	} else {
 		estadoLCD = TELA1; // Reset to default state if invalid
 	}
+}
+
+void initLCD(void) {
+    initialize_LCD(); // Initialize the LCD
+    lcd_create_char(1, pieceO);
+    lcd_create_char(2, pieceL);
+    lcd_create_char(3, pieceS);
+    lcd_create_char(4, pieceZ);
+    lcd_create_char(5, pieceT);
+    lcd_create_char(6, pieceJ);
 }

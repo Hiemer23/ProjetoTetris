@@ -16,7 +16,7 @@
 #define ROWS 16          // Número de linhas do tabuleiro
 #define COLS 8           // Número de colunas do tabuleiro
 #define DEBUG 1          // Ativa/Desativa mensagens de debug
-#define TEMPO_BASE 500   // Tempo base (em milissegundos) para movimentação das peças
+#define TEMPO_BASE 750   // Tempo base (em milissegundos) para movimentação das peças
 
 // Definição da estrutura para as peças
 typedef struct
@@ -222,6 +222,20 @@ void update_game(int *linha, int *coluna, PecaTetris *peca, int *peca_atual);
  */
 int get_next_piece();
 
+/**
+ * @brief Get a pontuacao Atual
+ * 
+ * Retorna a pontuação atual do jogo.
+ * 
+ * @return uint16_t A pontuação atual.
+ */
+uint16_t get_pontuacao(void);
+
+/**
+ * @brief limpa a pontuação do jogo.
+ * 
+ */
+void clear_pontuacao(void);
 extern uint8_t board[ROWS][COLS];
 
 #endif /* INC_TETRIS_H_ */
