@@ -8,9 +8,6 @@
 #ifndef INC_MATRIZLED_H_
 #define INC_MATRIZLED_H_
 
-#include <stdint.h>
-#include <main.h>
-
 #define ColunasMatriz 8
 #define LinhasMatriz 16
 

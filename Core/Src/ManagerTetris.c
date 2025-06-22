@@ -5,7 +5,7 @@
  *      Author: andrey
  */
 
-#include "ManagerTetris.h"
+#include "main.h"
 
 static int linha = 0, coluna = 0, peca_atual = 0, running = FALSE; // Posição inicial da peça
 PecaTetris peca;

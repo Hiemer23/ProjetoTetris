@@ -1,4 +1,4 @@
-#include "lcdDisplay.h"
+#include "main.h"
 
 //Prototypes:
 void LCD_Manager();

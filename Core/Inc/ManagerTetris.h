@@ -8,9 +8,6 @@
 #ifndef INC_MANAGERTETRIS_H_
 #define INC_MANAGERTETRIS_H_
 
-#include "tetris.h"
-#include "lcdDisplay.h"
-
 #define CUSTOMI 0x7C
 #define CUSTOMO 1
 #define CUSTOML 2

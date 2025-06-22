@@ -8,10 +8,6 @@
 #ifndef INC_LCD_MANAGER_H_
 #define INC_LCD_MANAGER_H_
 
-#include "ManagerTetris.h"
-#include "lcdDisplay.h"
-#include "input.h"
-
 // Enum
 typedef enum
 {

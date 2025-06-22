@@ -5,7 +5,7 @@
  *      Author: andrey
  */
 
-#include "input.h"
+#include "main.h"
 
 uint16_t AD1, AD2, BotaoStatus;
 static ADC_HandleTypeDef hadc1;
@@ -20,6 +20,8 @@ uint8_t upAndDown_locked,
 // Prototipos
 void atualizaNavegacaoUpandDown(void);
 void resetCimaBaixo(void);
+void atualizaNavegacaoEsquerdaDireita(void);
+void atualizaBotao(void);
 
 void initInput(ADC_HandleTypeDef *hadc)
 {

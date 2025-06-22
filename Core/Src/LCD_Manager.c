@@ -5,7 +5,7 @@
  *      Author: 2021000267
  */
 
-#include "LCD_Manager.h"
+#include "main.h"
 // Novos cararcteres para o jogo
 
 // L
@@ -105,16 +105,16 @@ void lcd_Task(void) {
 		change_Message(1, "Start Game");
 		break;
     case TELATESTE:
-        char linhaTeste[16], linhaTestes2[16];                    // 16 caracteres + terminador '\0'
+        //char linhaTeste[16], linhaTestes2[16];                    // 16 caracteres + terminador '\0'
         // sprintf(linhaTeste, "AD1: %4u", AD1);   // %4u → valor sem sinal com 4 dígitos (ajustável)
         // change_Message(0, linhaTeste);
         
         // sprintf(linhaTestes2, "AD2:%4u Bot:%1u", AD2, BotaoStatus);   // %4u → valor sem sinal com 4 dígitos (ajustável)
         // change_Message(1, linhaTestes2);
-        sprintf(linhaTeste, "Y:%4u         ", AD2);   // %4u → valor sem sinal com 4 dígitos (ajustável)
-        change_Message(0, linhaTeste);
-        sprintf(linhaTestes2, "Cima:%u Baixo:%u ", getCima(), getBaixo());   // %4u → valor sem sinal com 4 dígitos (ajustável)
-        change_Message(1, linhaTestes2);
+//        sprintf(linhaTeste, "Y:%4u        ", AD2);   // %4u → valor sem sinal com 4 dígitos (ajustável)
+//        change_Message(0, linhaTeste);
+//        snprintf(linhaTestes2, sizeof(linhaTestes2), "Cima:%u Baixo:%u ", getCima(), getBaixo());   // %4u → valor sem sinal com 4 dígitos (ajustável)
+//        change_Message(1, linhaTestes2);
         break;
     case TELANEXTPIECE:
     	char linha[16] = "Proxima Peca:   ";

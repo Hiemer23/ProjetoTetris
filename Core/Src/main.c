@@ -21,12 +21,7 @@
 
 /* Private includes ----------------------------------------------------------*/
 /* USER CODE BEGIN Includes */
-#include <stdint.h>
-#include "lcdDisplay.h"
-#include "ManagerTetris.h"
-#include "LCD_Manager.h"
-#include "MatrizLed.h"
-#include "input.h"
+
 /* USER CODE END Includes */
 
 /* Private typedef -----------------------------------------------------------*/

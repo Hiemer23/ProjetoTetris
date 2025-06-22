@@ -8,9 +8,6 @@
 #ifndef INC_INPUT_H_
 #define INC_INPUT_H_
 
-#include <stdint.h>
-#include "main.h"
-
 #define AD2_THRESHOLD_LOW   200
 #define AD2_THRESHOLD_HIGH  3900
 #define AD2_DEADZONE_MIN    800
@@ -24,6 +21,9 @@ uint8_t getDireita(void);
 uint8_t getBaixo(void);
 uint8_t getEsquerda(void);
 uint8_t getBotaoEvento(void);
+void resetBotaoEvento(void);
+void resetCimaBaixo(void);
+void resetDireitaEsquerda(void);
 
 
 extern uint16_t AD1, AD2, BotaoStatus;

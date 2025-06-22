@@ -4,7 +4,7 @@
  *  Created on: Jun 19, 2025
  *      Author: andrey
  */
-#include "MatrizLed.h"
+#include "main.h"
 
 volatile MatrizLED_t MatrizLed = {0};
 

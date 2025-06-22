@@ -31,7 +31,15 @@ extern "C" {
 
 /* Private includes ----------------------------------------------------------*/
 /* USER CODE BEGIN Includes */
-
+#include <stdint.h>
+#include <stdio.h>
+#include <stdlib.h>
+#include "input.h"
+#include "LCD_Manager.h"
+#include "lcdDisplay.h"
+#include "ManagerTetris.h"
+#include "MatrizLed.h"
+#include "tetris.h"
 /* USER CODE END Includes */
 
 /* Exported types ------------------------------------------------------------*/
@@ -53,7 +61,7 @@ extern "C" {
 void Error_Handler(void);
 
 /* USER CODE BEGIN EFP */
-
+void DWT_Delay_us(uint32_t us);
 /* USER CODE END EFP */
 
 /* Private defines -----------------------------------------------------------*/

@@ -21,3 +21,4 @@
 ../Core/Src/tetris.c:751:6:atualizar_pontuacao	24	static
 ../Core/Src/tetris.c:792:6:show_next_peace	16	static
 ../Core/Src/tetris.c:821:10:get_pontuacao	4	static
+../Core/Src/tetris.c:826:6:clear_pontuacao	4	static

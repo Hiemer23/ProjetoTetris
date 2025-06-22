@@ -8,9 +8,6 @@
 #ifndef INC_TETRIS_H_
 #define INC_TETRIS_H_
 
-#include <stdio.h>
-#include <stdlib.h>
-#include "main.h"
 
 // Definições de tamanhos do tabuleiro e tempo de jogo
 #define ROWS 16          // Número de linhas do tabuleiro

@@ -6,7 +6,7 @@
  */
 
 
-#include "tetris.h"
+#include "main.h"
 
 // ----------------------------------------
 // VARIAVEIS UTILIZADAS NO JOGO

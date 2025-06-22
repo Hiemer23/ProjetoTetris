@@ -8,8 +8,6 @@
 #ifndef LCD_16X2_H
 #define	LCD_16X2_H
 
-#include "main.h"
-
 #define LCD_delay_ms HAL_Delay
 #define LCD_delay_us DWT_Delay_us
 

@@ -1,6 +1,4 @@
-Core/Src/LCD_Manager.o: ../Core/Src/LCD_Manager.c \
- ../Core/Inc/LCD_Manager.h ../Core/Inc/ManagerTetris.h \
- ../Core/Inc/tetris.h ../Core/Inc/main.h \
+Core/Src/LCD_Manager.o: ../Core/Src/LCD_Manager.c ../Core/Inc/main.h \
  ../Drivers/STM32F1xx_HAL_Driver/Inc/stm32f1xx_hal.h \
  ../Core/Inc/stm32f1xx_hal_conf.h \
  ../Drivers/STM32F1xx_HAL_Driver/Inc/stm32f1xx_hal_rcc.h \
@@ -27,10 +25,8 @@ Core/Src/LCD_Manager.o: ../Core/Src/LCD_Manager.c \
  ../Drivers/STM32F1xx_HAL_Driver/Inc/stm32f1xx_hal_pwr.h \
  ../Drivers/STM32F1xx_HAL_Driver/Inc/stm32f1xx_hal_tim.h \
  ../Drivers/STM32F1xx_HAL_Driver/Inc/stm32f1xx_hal_tim_ex.h \
- ../Core/Inc/lcdDisplay.h ../Core/Inc/input.h
-../Core/Inc/LCD_Manager.h:
-../Core/Inc/ManagerTetris.h:
-../Core/Inc/tetris.h:
+ ../Core/Inc/input.h ../Core/Inc/LCD_Manager.h ../Core/Inc/lcdDisplay.h \
+ ../Core/Inc/ManagerTetris.h ../Core/Inc/MatrizLed.h ../Core/Inc/tetris.h
 ../Core/Inc/main.h:
 ../Drivers/STM32F1xx_HAL_Driver/Inc/stm32f1xx_hal.h:
 ../Core/Inc/stm32f1xx_hal_conf.h:
@@ -58,5 +54,9 @@ Core/Src/LCD_Manager.o: ../Core/Src/LCD_Manager.c \
 ../Drivers/STM32F1xx_HAL_Driver/Inc/stm32f1xx_hal_pwr.h:
 ../Drivers/STM32F1xx_HAL_Driver/Inc/stm32f1xx_hal_tim.h:
 ../Drivers/STM32F1xx_HAL_Driver/Inc/stm32f1xx_hal_tim_ex.h:
-../Core/Inc/lcdDisplay.h:
 ../Core/Inc/input.h:
+../Core/Inc/LCD_Manager.h:
+../Core/Inc/lcdDisplay.h:
+../Core/Inc/ManagerTetris.h:
+../Core/Inc/MatrizLed.h:
+../Core/Inc/tetris.h:
