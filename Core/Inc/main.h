@@ -34,6 +34,8 @@ extern "C" {
 #include <stdint.h>
 #include <stdio.h>
 #include <stdlib.h>
+#include <string.h>
+#include "EEPROM.h"
 #include "input.h"
 #include "LCD_Manager.h"
 #include "lcdDisplay.h"
@@ -49,7 +51,8 @@ extern "C" {
 
 /* Exported constants --------------------------------------------------------*/
 /* USER CODE BEGIN EC */
-
+extern EstadoMenu estadoMenu;
+extern ModoMenu modoMenu;
 /* USER CODE END EC */
 
 /* Exported macro ------------------------------------------------------------*/

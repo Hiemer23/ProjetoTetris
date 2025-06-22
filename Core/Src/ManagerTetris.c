@@ -33,6 +33,9 @@ void taskTetris(void)
     {
         running = FALSE; // Para o jogo
         resetBotaoEvento();
+
+        tentarSalvarRecorde(get_pontuacao());
+
         return;
     }
     if(getDireita())

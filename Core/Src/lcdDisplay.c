@@ -20,7 +20,9 @@ void lcd_send_command(uint8_t cmd);
 int8_t status_LCD_startup = 1;
 char message[2][17] = {"                ", "                "};
 uint8_t position_String = 0;
+uint8_t position_line = 0;
 uint8_t linha_LCD = 0;
+uint8_t changed = FALSE;
 
 void lcd_send_data(uint8_t data);
 
@@ -112,16 +114,28 @@ void register_EN(void) {
 //}
 
 void Write_Display() {
+    if(changed){
 
-    if (position_String < 16) {
-        Write_caracter(message[linha_LCD][position_String]);
+        lcd_set_cursor(position_String, position_line);
+        Write_caracter(message[position_line][position_String]);
         position_String++;
-    } else {
-        position_String = 0;
-        (linha_LCD == 0) ? (linha_LCD = 1) : (linha_LCD = 0);
-        Set_Line(linha_LCD);
-    }
 
+        if(position_String >= 16){
+            position_String = 0;
+            
+            if(position_line == 0){
+
+                position_line = 1;
+                
+            } else {
+
+                position_line = 0;
+                changed = FALSE;
+            }
+
+        
+        }
+    }
 }
 
 void Write_caracter(uint8_t c) {
@@ -152,6 +166,7 @@ void change_Message(uint8_t line, char *new_Text) {
 
         if (message[line][i] != new_Text[i]) {
                 message[line][i] = new_Text[i];
+                changed = TRUE;
             }
         i++;
     }
@@ -211,5 +226,20 @@ void lcd_create_char(uint8_t pos, uint8_t *pattern) {
     lcd_send_command(0x40 | (pos << 3));  // endereço CGRAM para caractere N
     for (int i = 0; i < 8; i++) {
         lcd_send_data(pattern[i]);   // envia cada linha do caractere
+    }
+}
+
+void lcd_cursor_on(void) {
+    lcd_send_command(0x0F); // display ON, cursor ON
+}
+void lcd_cursor_off(void) {
+    lcd_send_command(0x0C); // display ON, cursor OFF
+}
+
+void lcd_set_cursor(uint8_t col, uint8_t row) {
+    if (row == 0) {
+        lcd_send_command(0x80 + col); // linha 1
+    } else {
+        lcd_send_command(0xC0 + col); // linha 2
     }
 }

@@ -1,0 +1,7 @@
+../Core/Src/EEPROM.c:15:6:salvar_na_flash	56	static
+../Core/Src/EEPROM.c:39:6:ler_da_flash	16	static
+../Core/Src/EEPROM.c:44:6:inicializarEEPROM	8	static
+../Core/Src/EEPROM.c:58:6:atualizarNomeAtual	16	static
+../Core/Src/EEPROM.c:64:6:tentarSalvarRecorde	16	static
+../Core/Src/EEPROM.c:75:10:get_pontuacao_EEPROM	8	static
+../Core/Src/EEPROM.c:81:6:get_nome_recorde	16	static

@@ -1,3 +1,9 @@
-../Core/Src/LCD_Manager.c:85:6:lcd_Task	7
-../Core/Src/LCD_Manager.c:130:6:changeLCDScreen	2
-../Core/Src/LCD_Manager.c:139:6:initLCD	1
+../Core/Src/LCD_Manager.c:96:6:lcd_Task	10
+../Core/Src/LCD_Manager.c:155:6:changeLCDScreen	2
+../Core/Src/LCD_Manager.c:170:6:initLCD	1
+../Core/Src/LCD_Manager.c:181:6:updateDataEEPROMLCDMenu2	1
+../Core/Src/LCD_Manager.c:189:6:updateDataEEPROMLCDMenu3	1
+../Core/Src/LCD_Manager.c:204:6:updateDataEEPROMLCDMenu4	1
+../Core/Src/LCD_Manager.c:213:6:changeName	9
+../Core/Src/LCD_Manager.c:237:6:inserir_letra_nome	1
+../Core/Src/LCD_Manager.c:245:6:atualizar_nome_em_letrasLinha2	1

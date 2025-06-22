@@ -84,6 +84,9 @@ MatrizLED_t MatrizLedB = {
     {0, 0, 0, 0, 0, 0, 0, 0},
     {0, 0, 0, 0, 0, 0, 0, 0}};
 
+EstadoMenu estadoMenu = MENU_TELA1;
+ModoMenu modoMenu = MODO_NAVEGANDO;
+
 /* USER CODE END PV */
 
 /* Private function prototypes -----------------------------------------------*/
@@ -164,10 +167,10 @@ int main(void)
     DWT_Delay_Init();
     initLCD();
 
-    estados_LCD estadoTeste = 0;
+    inicializarEEPROM();
+
     editPosition = 1;
 
-    
     changeLCDScreen(TELA1);
     /* USER CODE END 2 */
 
@@ -182,54 +185,144 @@ int main(void)
             taskLeituraAD();
 
             Write_Display();
+            lcd_set_cursor(positionXSubMenu3, positionYSubMenu3);
             taskMatrizLed();
-            if(gameRunning())
+            if (gameRunning())
             {
                 taskTetris();
             }
-            else{
-                editPosition = TRUE;
-            }
-            
+
             changeMatriz(board);
             HAL_GPIO_TogglePin(TestePin_GPIO_Port, TestePin_Pin);
         }
 
         if (count100ms >= 100)
         {
-            if (editPosition)
+
+            switch (modoMenu)
             {
-                count100ms = 0;
+            case MODO_NAVEGANDO:
                 if (getCima())
                 {
-                    estadoTeste = estadoTeste == TELA1 ? TELA4 : estadoTeste - 1;
-                    changeLCDScreen(estadoTeste);
+                    estadoMenu = estadoMenu == MENU_TELA1 ? MENU_TELA4 : estadoMenu - 1;
+                    changeLCDScreen(estadoMenu);
                     resetCimaBaixo();
                 }
                 if (getBaixo())
                 {
-                    estadoTeste = estadoTeste == TELA4 ? TELA1 : estadoTeste + 1;
-                    changeLCDScreen(estadoTeste);
+                    estadoMenu = estadoMenu == MENU_TELA4 ? MENU_TELA1 : estadoMenu + 1;
+                    changeLCDScreen(estadoMenu);
                     resetCimaBaixo();
                 }
+
+                if (getBotaoEvento())
+                {
+                    modoMenu = MODO_EXECUTANDO;
+                    resetBotaoEvento();
+
+                    switch (estadoMenu)
+                    {
+                    default:
+                    case MENU_TELA1:
+                        initGame();
+                        changeLCDScreen(SUB_MENU1);
+                        break;
+                    case MENU_TELA2:
+                        updateDataEEPROMLCDMenu2();
+                        changeLCDScreen(SUB_MENU2);
+                        break;
+                    case MENU_TELA3:
+                        updateDataEEPROMLCDMenu3();
+                        changeLCDScreen(SUB_MENU3);
+                        break;
+                    case MENU_TELA4:
+                        updateDataEEPROMLCDMenu4();
+                        changeLCDScreen(SUB_MENU4);
+                        break;
+                    }
+                }
+                break;
+
+            case MODO_EXECUTANDO:
+
+                switch (estadoMenu)
+                {
+                default:
+                case SUB_MENU1:
+                    if (!gameRunning())
+                    {
+                        if (getBotaoEvento())
+                        {
+                            resetBotaoEvento();
+                            modoMenu = MODO_NAVEGANDO;
+                            changeLCDScreen(MENU_TELA1);
+                        }
+                    }
+                    break;
+                case SUB_MENU2:
+                    if (getBotaoEvento())
+                    {
+                        // Sai da subtela e volta para navegação
+                        modoMenu = MODO_NAVEGANDO;
+
+                        changeLCDScreen(MENU_TELA2); // volta para o menu atual
+                        resetBotaoEvento();
+                    }
+                    break;
+                case SUB_MENU3:
+                    changeName();
+                    if (getBotaoEvento())
+                    {
+                        char letraSelecionada;
+                        resetBotaoEvento();
+
+                        if (positionYSubMenu3 == 0)
+                            letraSelecionada = letrasLinha1[positionXSubMenu3];
+                        else
+                            letraSelecionada = letrasLinha2[positionXSubMenu3];
+
+                        if (letraSelecionada == '0')
+                        {
+                            // Sai da subtela e volta para navegação
+                            modoMenu = MODO_NAVEGANDO;
+                            lcd_cursor_off();
+                            changeLCDScreen(MENU_TELA3); // volta para o menu atual
+                            
+                            memcpy(dados.nomeAtual, nomeDigitado, 3);
+                            salvar_na_flash(&dados);
+                        }
+                        else if (letraSelecionada >= 'A' && letraSelecionada <= 'Z')
+                        {
+                            inserir_letra_nome(letraSelecionada);
+                            atualizar_nome_em_letrasLinha2();
+                        }
+                    }
+                    break;
+                case SUB_MENU4:
+                    if (getBotaoEvento())
+                    {
+                        // Sai da subtela e volta para navegação
+                        modoMenu = MODO_NAVEGANDO;
+
+                        changeLCDScreen(MENU_TELA4); // volta para o menu atual
+                        resetBotaoEvento();
+                    }
+                    break;
+                }
+                break;
             }
 
-            if(getBotaoEvento() && !gameRunning()){
-                editPosition = FALSE;
-                changeLCDScreen(TELANEXTPIECE);
-                initGame();
-                resetBotaoEvento();
-            }
+            count100ms = 0;
             lcd_Task();
         }
 
         if (count1000ms >= 1000)
         {
             count1000ms = 0;
-            //            estadoTeste++;
-            //            if (estadoTeste > TELA4)
-            //                estadoTeste = TELA1;
-            //            changeLCDScreen(estadoTeste);
+            //            estadoLCD++;
+            //            if (estadoLCD > TELA4)
+            //                estadoLCD = TELA1;
+            //            changeLCDScreen(estadoLCD);
         }
 
         /* USER CODE END WHILE */

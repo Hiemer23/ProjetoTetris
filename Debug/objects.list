@@ -1,3 +1,4 @@
+"./Core/Src/EEPROM.o"
 "./Core/Src/LCD_Manager.o"
 "./Core/Src/ManagerTetris.o"
 "./Core/Src/MatrizLed.o"
